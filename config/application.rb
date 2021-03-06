@@ -33,5 +33,6 @@ module AngelListVentureProject
     config.generators.system_tests = nil
 
     config.eager_load_paths << "#{Rails.root}/app/services/*.rb"
+    config.assets.initialize_on_precompile = false
   end
 end
