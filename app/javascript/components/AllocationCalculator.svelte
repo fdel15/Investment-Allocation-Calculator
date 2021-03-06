@@ -4,7 +4,7 @@
 
   let allocationAmount = 0;
   let investors = [];
-  let apiCall;
+  let timer;
 
 function calculateAllocations(investors) {
   let validInvestors = investors.filter(investor => {
@@ -14,8 +14,9 @@ function calculateAllocations(investors) {
    if(validInvestors.length === 0 || allocationAmount === 0) {
      clearAllocations()
    } else {
-     clearTimeout(apiCall)
-     apiCall = setTimeout(() => {
+    // Timeout is to prevent spamming our API server while inputting data
+     clearTimeout(timer)
+     timer = setTimeout(() => {
       railsApiCall(allocationAmount, validInvestors)
      }, 1000);
    }
@@ -37,12 +38,11 @@ async function railsApiCall(allocation_amount, investor_amounts) {
     },
     body: JSON.stringify(data)
   }).then(async response => {
-
     if (response.ok) {
       let data = await response.json().catch(() => {})
       allocateAmounts(data)
     } else {
-      throw new Error(response.statusText)
+      console.log(response.statusText)
     }
   })
 }
@@ -76,7 +76,7 @@ async function railsApiCall(allocation_amount, investor_amounts) {
   function allocateAmounts(data) {
     investors = investors.map(investor => {
       let allocation = data.find(allo => allo.id === investor.id)
-
+  
       if(allocation) {
         return {...investor, allocatedAmount: allocation.allocatedAmount}
       } else { return investor }

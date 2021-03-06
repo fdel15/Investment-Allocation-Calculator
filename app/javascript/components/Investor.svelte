@@ -20,11 +20,11 @@
   export let requestedAmount;
   export let allocatedAmount = undefined
 
-  const roundedAllocationAmount = () => {
-    if(allocatedAmount) {
-      Math.round(allocatedAmount * 100000) / 100000
+  function roundedAllocationAmount(amount) {
+    if(amount) {
+      return Math.round(amount * 100000) / 100000
     } else {
-      0
+      return 0
     }
   }
   
@@ -34,7 +34,7 @@
   <td><input placeholder='Name' bind:value={name} on:change={handleChange}></td>
   <td><input placeholder='Average Amount' type=number bind:value={averageAmount} on:change={handleChange}></td>
   <td><input placeholder='Requested Amount' type=number bind:value={requestedAmount} on:change={handleChange}></td>
-  <td>{roundedAllocationAmount}</td>
+  <td>{roundedAllocationAmount(allocatedAmount)}</td>
   <td><a id='delete' on:click={handleClick}>&#9747;</a></td>
 
 <style>
