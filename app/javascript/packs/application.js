@@ -15,3 +15,8 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+import WebpackerSvelte from 'webpacker-svelte'
+import AllocationCalculator from '../components/AllocationCalculator.svelte'
+
+WebpackerSvelte.setup({ AllocationCalculator })
