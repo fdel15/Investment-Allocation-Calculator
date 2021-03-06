@@ -4,9 +4,32 @@
 
   let allocationAmount = 0;
   let investors = [];
-  let timer;
 
-function calculateAllocations(investors) {
+  function updateInvestor(event) {
+    let updatedInvestor = event.detail.investor
+    investors = investors.map(investor => {
+      if(investor.id === updatedInvestor.id) {
+        return updatedInvestor
+      }
+      else { return investor }
+    })
+  }
+
+  function addInvestor() {
+    investors.push({id: nextId() })
+    investors = investors
+  }
+
+  function deleteInvestor(event) {
+    let id = event.detail.id
+    investors = investors.filter(investor => investor.id != id )
+  }
+
+  function nextId() {
+    return investors.length === 0 ? 1 : investors[investors.length - 1].id + 1
+  }
+
+  async function calculateAllocations() {
   let validInvestors = investors.filter(investor => {
       return investor.id && investor.name && investor.averageAmount && investor.requestedAmount
    })
@@ -14,11 +37,7 @@ function calculateAllocations(investors) {
    if(validInvestors.length === 0 || allocationAmount === 0) {
      clearAllocations()
    } else {
-    // Timeout is to prevent spamming our API server while inputting data
-     clearTimeout(timer)
-     timer = setTimeout(() => {
       railsApiCall(allocationAmount, validInvestors)
-     }, 1000);
    }
 }
 
@@ -47,33 +66,7 @@ async function railsApiCall(allocation_amount, investor_amounts) {
   })
 }
 
-  function updateInvestor(event) {
-    let updatedInvestor = event.detail.investor
-    investors = investors.map(investor => {
-      if(investor.id === updatedInvestor.id) {
-        return updatedInvestor
-      }
-      else { return investor }
-    })
-
-    calculateAllocations(investors)
-  }
-
-  function addInvestor() {
-    investors.push({id: nextId() })
-    investors = investors
-  }
-
-  function deleteInvestor(event) {
-    let id = event.detail.id
-    investors = investors.filter(investor => investor.id != id )
-  }
-
-  function nextId() {
-    return investors.length === 0 ? 1 : investors[investors.length - 1].id + 1
-  }
-
-  function allocateAmounts(data) {
+function allocateAmounts(data) {
     investors = investors.map(investor => {
       let allocation = data.find(allo => allo.id === investor.id)
   
@@ -95,7 +88,6 @@ async function railsApiCall(allocation_amount, investor_amounts) {
           type=number 
           placeholder='Allocation Amount' 
           bind:value={allocationAmount} 
-          on:change={calculateAllocations(investors)}
         />
       </label>
    </div>
@@ -130,6 +122,7 @@ async function railsApiCall(allocation_amount, investor_amounts) {
 </div>
 
 <Button on:buttonClick={addInvestor} text="Add Investor" />
+<Button on:buttonClick={calculateAllocations} text="Calculate" color="#1c1cea" />
 
 <style>
   h1 { text-align: center;}

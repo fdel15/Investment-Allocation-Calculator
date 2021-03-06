@@ -2,18 +2,19 @@
   import { createEventDispatcher } from 'svelte'
   const dispatch = createEventDispatcher();
 
-  export let text;
+	export let text;
+	export let color = '#44c767';
 
   function handleClick() {
     dispatch('buttonClick')
   }
 </script>
 
-<a id="myButton" on:click={handleClick}>{text}</a>
+<a id="myButton" on:click={handleClick} style='--color: {color}'>{text}</a>
 
 <style>
   #myButton {
-  	background-color:#44c767;
+  	background-color: var(--color);
   	border-radius:28px;
   	border:1px solid #18ab29;
   	display:inline-block;
@@ -27,7 +28,7 @@
   }
 
   #myButton:hover {
-  	background-color:#5cbf2a;
+  	background-color: #107782;
   }
 
   #myButton:active {
