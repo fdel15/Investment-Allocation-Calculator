@@ -51,7 +51,7 @@ The algorithm class can be found `app/services/investment_allocator.rb`
 
 I integrated Svelte for the front end. My reasons for doing this are:
 
-1. I wanted to use Javascript instead of Ruby because it will provide a better experience with the allocated amounts instantly updating as we input the data.
+1. I wanted to use Javascript instead of Ruby because it will provide a better experience without needing to refresh the page while inputting the data.
 
 2. I wanted to use a modern FE library instead of jQuery because writing javascript code in components makes the code easier to reason about and understand.
 
