@@ -3,6 +3,11 @@
 The code is deployed to Heroku so you can test the calculator without needing to run it locally
 https://secure-bayou-25077.herokuapp.com/
 
+- [Running App Locally](#run-app-locally)
+- [BackEnd](#backend)
+- [FrontEnd](#frontend)
+- [Answers](#answers)
+
 ## Run app locally
 
 If you need to run the app locally, you should be able to run it with the following commands after pulling down the repository.
@@ -100,4 +105,4 @@ this could potentially happen less often?
 We should empathize with their frustration but also mention that we are happy that they are finding value in the deals we are offering. We should explain that in order to allow investors to participate in every deal they find value in, then sometimes we have to limit the amount an individual can invest in a deal.
 
 Moving forward, we may be able to improve our proration basis by using average requested amount instead of average invested amount. This will allow the investor above to be allocated more in subsequent deals. Another potential solution would be to track the total amount they have been limited, but I am not sure how we would include this information in the proration basis. It seems like we should be able to though.
-* ...
+
