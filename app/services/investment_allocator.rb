@@ -8,6 +8,7 @@ class InvestmentAllocator
   
   attr_reader :allocation_amount, :requested_amount_sum, :investor_average_sum
   attr_accessor :investor_amounts
+  MARGIN_OF_ERROR = 0.01
 
   def initialize(allocation_amount:, investor_amounts:)
     @allocation_amount = allocation_amount
@@ -35,7 +36,7 @@ class InvestmentAllocator
   end
 
   def allocate_pro_rated_amounts
-    while allocation_amount > 0
+    while allocation_amount > MARGIN_OF_ERROR
       round_investment_amount = 0
       investor_amounts.each do |investor|
         requested_amount = investor[:requestedAmount]
